@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Agentic RAG — Self-correcting, citation-enforced document Q&A powered by retrieval-augmented generation with an intelligent agent loop.">
+  <title>Agentic RAG — Neural Command Center</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body>
+
+  <!-- Animated mesh overlay -->
+  <div class="bg-mesh">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- App Shell -->
+  <div class="app">
+
+    <!-- ─── Header ─────────────────────────────────────── -->
+    <header class="header">
+      <div class="header-brand">
+        <button class="header-toggle" id="sidebar-toggle" aria-label="Toggle document panel">☰</button>
+        <div class="header-logo">⚡</div>
+        <div>
+          <div class="header-title">Agentic RAG</div>
+          <div class="header-subtitle">Neural Document Intelligence</div>
+        </div>
+      </div>
+      <div class="header-status" id="health-status">
+        <div class="status-dot" id="status-dot"></div>
+        <span id="status-text">Connecting…</span>
+      </div>
+    </header>
+
+    <!-- ─── Sidebar: Document Vault ────────────────────── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">
+          Document Vault
+          <span class="doc-count" id="doc-count">0</span>
+        </div>
+      </div>
+
+      <!-- Upload Zone -->
+      <div class="upload-zone" id="upload-zone">
+        <div class="upload-zone-content">
+          <div class="upload-icon">📄</div>
+          <div class="upload-text">Drop PDFs here or click to upload</div>
+          <div class="upload-hint">Supports .pdf files • Max 100MB</div>
+        </div>
+        <input type="file" class="upload-input" id="upload-input" accept=".pdf" multiple>
+      </div>
+
+      <!-- Upload Progress -->
+      <div class="upload-progress" id="upload-progress">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+        <div class="progress-text" id="progress-text">Processing…</div>
+      </div>
+
+      <!-- Document List -->
+      <div class="doc-list" id="doc-list">
+        <div class="doc-empty" id="doc-empty">
+          <div class="doc-empty-icon">📂</div>
+          <div class="doc-empty-text">No documents ingested yet.<br>Upload a PDF to get started.</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ─── Main: Chat Area ────────────────────────────── -->
+    <main class="main">
+
+      <!-- 3D Carousel Background (scoped to answer panel) -->
+      <div class="carousel-3d-wrapper" id="carousel-3d-wrapper" aria-hidden="true">
+        <div class="carousel-3d-scene" id="carousel-3d-scene">
+          <!-- Cards injected by JS -->
+        </div>
+      </div>
+
+      <!-- Chat Messages -->
+      <div class="chat-container" id="chat-container">
+        <div class="welcome" id="welcome-screen">
+          <div class="welcome-icon">🧠</div>
+          <h1 class="welcome-title">Ask your documents anything</h1>
+          <p class="welcome-desc">
+            Upload a PDF, then ask questions. The agentic pipeline retrieves,
+            reranks, self-corrects, and cites every claim so you can
+            <strong>trust</strong> the answers.
+          </p>
+          <div class="welcome-features">
+            <div class="welcome-feature">🔍 Two-stage retrieval</div>
+            <div class="welcome-feature">🤖 Self-correcting agent</div>
+            <div class="welcome-feature">📑 Inline citations</div>
+            <div class="welcome-feature">🔎 View source chunks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline Visualizer -->
+      <div class="pipeline" id="pipeline">
+        <div class="pipeline-steps">
+          <div class="pipeline-step" id="pipe-search" data-step="search">
+            <span class="step-icon">🔍</span>
+            <span>Searching</span>
+          </div>
+          <div class="pipeline-connector" id="pipe-conn-1"></div>
+          <div class="pipeline-step" id="pipe-rerank" data-step="rerank">
+            <span class="step-icon">🎯</span>
+            <span>Reranking</span>
+          </div>
+          <div class="pipeline-connector" id="pipe-conn-2"></div>
+          <div class="pipeline-step" id="pipe-judge" data-step="judge">
+            <span class="step-icon">⚖️</span>
+            <span>Judging</span>
+          </div>
+          <div class="pipeline-connector" id="pipe-conn-3"></div>
+          <div class="pipeline-step" id="pipe-generate" data-step="generate">
+            <span class="step-icon">✨</span>
+            <span>Generating</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area">
+        <div class="input-wrapper">
+          <input
+            type="text"
+            class="query-input"
+            id="query-input"
+            placeholder="Ask a question about your documents…"
+            autocomplete="off"
+          >
+          <button class="send-btn" id="send-btn" aria-label="Send question" disabled>➤</button>
+        </div>
+        <div class="input-hint">Press Enter to send • Responses include inline citations and source chunks</div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
