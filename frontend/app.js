@@ -3,31 +3,31 @@
    Application Logic
    ============================================================ */
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://agentic-rag-backend-os1d.onrender.com';
 
 // ── DOM References ──────────────────────────────────────────
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
 const els = {
-  healthStatus:   $('#health-status'),
-  statusDot:      $('#status-dot'),
-  statusText:     $('#status-text'),
-  sidebar:        $('#sidebar'),
-  sidebarToggle:  $('#sidebar-toggle'),
-  uploadZone:     $('#upload-zone'),
-  uploadInput:    $('#upload-input'),
+  healthStatus: $('#health-status'),
+  statusDot: $('#status-dot'),
+  statusText: $('#status-text'),
+  sidebar: $('#sidebar'),
+  sidebarToggle: $('#sidebar-toggle'),
+  uploadZone: $('#upload-zone'),
+  uploadInput: $('#upload-input'),
   uploadProgress: $('#upload-progress'),
-  progressFill:   $('#progress-bar-fill'),
-  progressText:   $('#progress-text'),
-  docList:        $('#doc-list'),
-  docEmpty:       $('#doc-empty'),
-  docCount:       $('#doc-count'),
-  chatContainer:  $('#chat-container'),
-  welcomeScreen:  $('#welcome-screen'),
-  pipeline:       $('#pipeline'),
-  queryInput:     $('#query-input'),
-  sendBtn:        $('#send-btn'),
+  progressFill: $('#progress-bar-fill'),
+  progressText: $('#progress-text'),
+  docList: $('#doc-list'),
+  docEmpty: $('#doc-empty'),
+  docCount: $('#doc-count'),
+  chatContainer: $('#chat-container'),
+  welcomeScreen: $('#welcome-screen'),
+  pipeline: $('#pipeline'),
+  queryInput: $('#query-input'),
+  sendBtn: $('#send-btn'),
   toastContainer: $('#toast-container'),
 };
 
@@ -42,7 +42,7 @@ const state = {
 
 // ── Constants ───────────────────────────────────────────────
 const UPLOAD_TIMEOUT_MS = 120_000;
-const QUERY_TIMEOUT_MS  = 60_000;
+const QUERY_TIMEOUT_MS = 60_000;
 
 const THINKING_MESSAGES = [
   { emoji: '🔍', text: 'Searching your documents…' },
